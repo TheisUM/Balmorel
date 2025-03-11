@@ -1,7 +1,5 @@
 * OPTIFLOW ANNUITY CALCULATIONS
 
-$ifi not %inv%==yes $goto NO_PROC_INVESTMENTS
-
 SCALAR ILOOPBREAK     "Scalar used as binary number to break any loop function";
 PARAMETER IWEIGHTY(Y)                  "Relative weight of the individual years in Y";
 * Set the relative weight of the individual years in Y.
@@ -18,6 +16,10 @@ $ifi "%bb4weighty%"=="shareYYY"  IWEIGHTY(Y)$((ORD(Y) EQ CARD(Y)) AND (CARD(Y) G
 PARAMETER IYHASANNUITYPROC(Y,Y,PROC)        "Binary parameter to establish whether the annuity of an investment of a process made in Y (first index) should be paid in the time period Y (second index) (0,1)" ;
 PARAMETER IINVYEARPROC_LEFT(Y,Y,PROC)      	"Remaining years of the lifetime of PROC of an investment made in Y (first index) at the beggining of Y (second index) (years)";
 PARAMETER IN_INV_PROC(Y,PROC)              	"Number of investments made OF PROC within Y (fraction)";
+
+$ifi not %inv%==yes IYHASANNUITYPROC(Y,Y,IPROCFIND)=0;
+
+$ifi not %inv%==yes $goto NO_PROC_INVESTMENTS
 
 **PROCESS
 LOOP(IPROCFIND,
@@ -64,9 +66,9 @@ LOOP(IPROCFIND,
   );
 );
 
+$label NO_PROC_INVESTMENTS
 
 PARAMETER ANNUITYCPROC(CCC,PROC)			"Parameter for annuity values of processes";
 
 ANNUITYCPROC(CCC,PROC)$(PROCDATA(PROC,'PROCKAPVARIABLE') EQ 1) = RateOfReturn / (1 - (1 + RateOfReturn) ** (-PROCDATA(PROC,'PROCLIFETIME')));
 
-$label NO_PROC_INVESTMENTS

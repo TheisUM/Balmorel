@@ -167,17 +167,17 @@ IPROCTIMESETS(PROC,T)$PROC_T(PROC)=YES;
 SET IPROCINTERIOR(PROC) "Set of PROC that are neither Sources nor Sinks nor Buffers nor Exims nor PROCSTORAGE nor PROCSTORAGE_Y";
 IPROCINTERIOR(PROC) = PROC(PROC)-PROCSOURCE(PROC)-PROCSINK(PROC)-PROCBUFFER(PROC)-PROCEXIM(PROC)-PROCSTORAGE(PROC)-PROCSTORAGE_Y(PROC); !! PROCSTORAGE?
 
-$ifi %inv%==yes PARAMETER IY4GREMAINY(Y,PROC)  "The number of remaining years in Y for new technology in the current Balbase4 model";
+PARAMETER IY4GREMAINY(Y,PROC)  "The number of remaining years in Y for new technology in the current Balbase4 model";
 
 
-$ifi %inv%==yes SET APROCKAPNEW(YYY,AAA,PROC)     'Areas for possible location of new Proc capacity';
-$ifi %inv%==yes $if     EXIST '../data/OPTIFLOW_APROCKAPNEW.inc' $INCLUDE         '../data/OPTIFLOW_APROCKAPNEW.inc';
-$ifi %inv%==yes $if not EXIST '../data/OPTIFLOW_APROCKAPNEW.inc' $INCLUDE '../../base/data/OPTIFLOW_APROCKAPNEW.inc';
-$ifi %inv%==yes %semislash%;
+SET APROCKAPNEW(YYY,AAA,PROC)     'Areas for possible location of new Proc capacity';
+$if     EXIST '../data/OPTIFLOW_APROCKAPNEW.inc' $INCLUDE         '../data/OPTIFLOW_APROCKAPNEW.inc';
+$if not EXIST '../data/OPTIFLOW_APROCKAPNEW.inc' $INCLUDE '../../base/data/OPTIFLOW_APROCKAPNEW.inc';
+%semislash%;
 
-$ifi %inv%==yes SET IAPROCKAPNEW(YYY,AAA,PROC)	'Area, Proc where technology may be invested based on APKN and some implicit constraints';
-$ifi %inv%==yes SET IAPROCKAPNEW_notY(AAA,PROC)	'Same as IAPROCKAPNEW, but not for a year';
-$ifi %inv%==yes SET IAPROCKAPNEW_all(YYY,AAA,PROC)	'Based on IAPROCKAPNEW, but contains all years, procs, and aras';
+SET IAPROCKAPNEW(YYY,AAA,PROC)	'Area, Proc where technology may be invested based on APKN and some implicit constraints';
+SET IAPROCKAPNEW_notY(AAA,PROC)	'Same as IAPROCKAPNEW, but not for a year';
+SET IAPROCKAPNEW_all(YYY,AAA,PROC)	'Based on IAPROCKAPNEW, but contains all years, procs, and aras';
 IAPROCKAPNEW(Y,IA,PROC) = APROCKAPNEW(Y,IA,PROC);    !! MORE LATER
 IAPROCKAPNEW_notY(IA,PROC) = SUM(Y,IAPROCKAPNEW(Y,IA,PROC));
 IAPROCKAPNEW_all(YYY,IA,PROC) = APROCKAPNEW(YYY,'DK1_A',PROC);
@@ -250,8 +250,8 @@ IPROCKAPDATA(Y,PROC,FLOW,IFLOWINOUT) = PROCKAPDATA(Y,PROC,FLOW,IFLOWINOUT);
 
 
 * Create subset of processes that is for the model to invest in, based on if it is in PROCDATA and has investment cost
-$ifi %inv%==yes SET IPROCFIND(PROC) 'Set of processes to be found as investments';
-$ifi %inv%==yes IPROCFIND(PROC)=PROC(PROC)$(PROCDATA(PROC,'PROCKAPVARIABLE') EQ 1);
+SET IPROCFIND(PROC) 'Set of processes to be found as investments';
+IPROCFIND(PROC)=PROC(PROC)$(PROCDATA(PROC,'PROCKAPVARIABLE') EQ 1);
 
 PARAMETER PROCKAPFX(YYY,AAA,PROC,FLOW,IFLOWINOUT) "Capacity of Process (U/h)" %semislash%
 $if     EXIST '../data/OPTIFLOW_PROCKAPFX.inc' $INCLUDE         '../data/OPTIFLOW_PROCKAPFX.inc';
@@ -633,7 +633,7 @@ $if not EXIST '../data/OPTIFLOW_RateOfReturn.inc' $INCLUDE '../../base/data/OPTI
 %semislash%;
 
 * Annuity calculation
-$ifi %OPTIFLOW%==yes      $include	"../../base/addons/optiflow/bb4/optiflow_annuities.inc";
+$include	"../../base/addons/optiflow/bb4/optiflow_annuities.inc";
 
 * ------------------------------------------------------------------------------
 * OBJECTIVES:
@@ -668,7 +668,7 @@ $if not EXIST '../data/OPTIFLOW_PROCTECHTYPE.inc' $INCLUDE '../../base/data/OPTI
 %semislash%;
 
 
-
+PARAMETER PROCKAPACCUMNET(YYY,AAA,PROC) "Resulting investments into OptiFlow processes";
 
 
 

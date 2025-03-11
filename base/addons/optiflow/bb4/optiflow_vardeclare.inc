@@ -6,7 +6,7 @@ POSITIVE VARIABLE VFLOW(Y,AAA,IPROCFROM,IPROCTO,FLOW,S,T)                   "FLO
 POSITIVE VARIABLE VFLOWSOURCE(Y,AAA,PROCSOURCE,FLOW,S,T)                    "FLOW quantities from Source (U/h)";
 POSITIVE VARIABLE VFLOWSINK(Y,AAA,PROCSINK,FLOW,S,T)                        "FLOW quantities to Sink (U/h)";
 FREE VARIABLE     VFLOWBUFFER(Y,AAA,PROCBUFFER,FLOW,S,T)                    "Net FLOW quantities to Buffer (U/h)";
-POSITIVE VARIABLE VFLOWTRANS(Y,IAAAE,IAAAI,PROC,FLOW,S,T)                        "Transport quantities (ton/h)";
+POSITIVE VARIABLE VFLOWTRANS(Y,IAAAE,IAAAI,PROC,FLOW,S,T)                   "Transport quantities (ton/h)";
 POSITIVE VARIABLE VSTORAGEVOL(Y,AAA,PROC,FLOW,S,T)                          "Content in PROCSTORAGE (U)";
 POSITIVE VARIABLE VSTORAGEVOL_Y(Y,AAA,PROC,FLOW,S)                         "Content in PROCSTORAGE_Y (U)";
 POSITIVE VARIABLE VSTORAGEVOL_ST(Y,AAA,PROC,FLOW,S,T);
@@ -26,8 +26,8 @@ POSITIVE VARIABLE VQFLOWSHAREOUT2INFX(Y,AAA,PROC,IFLOWIN,IFLOWOUT,S,T,ILOUPFXSET
 
 
 
-$ifi %inv%==yes   POSITIVE VARIABLE VPROCKAPACCUMNET(Y,AAA,PROC)         'Accumulated new investments (Presently not: minus any decommissioning of them due to lifetime expiration) this BB4, at end of previous (i.e., start of current) year (MW)';
-$ifi %inv%==yes   POSITIVE VARIABLE VPROCKAPNEW(Y,AAA,PROC)                 'New capacity (/h)';  !! se kommentarer til YYY  i bb4.sim
+POSITIVE VARIABLE VPROCKAPACCUMNET(Y,AAA,PROC)         'Accumulated new investments (Presently not: minus any decommissioning of them due to lifetime expiration) this BB4, at end of previous (i.e., start of current) year (MW)';
+POSITIVE VARIABLE VPROCKAPNEW(Y,AAA,PROC)                 'New capacity (/h)';  !! se kommentarer til YYY  i bb4.sim
 
 
 $ontext
@@ -35,8 +35,8 @@ $ifi %inv%==yes   BINARY VARIABLE VPROCKAPNEWSCALE_U(Y,AAA,PROC)   "Binary varia
 $ifi %inv%==yes   BINARY VARIABLE VPROCKAPDEC_U(Y,AAA,PROC)        "Binary variable to model decomissioning of existing incineration plants" ;
 $offtext
 
-$ifi %inv%==yes   POSITIVE VARIABLE VPROCKAPNEWSCALE_U(Y,AAA,PROC)   "Binary variable to model economy of scale of waste incineration plants" ;
-$ifi %inv%==yes   POSITIVE VARIABLE VPROCKAPDEC_U(Y,AAA,PROC)        "Binary variable to model decomissioning of existing incineration plants" ;
+POSITIVE VARIABLE VPROCKAPNEWSCALE_U(Y,AAA,PROC)   "Binary variable to model economy of scale of waste incineration plants" ;
+POSITIVE VARIABLE VPROCKAPDEC_U(Y,AAA,PROC)        "Binary variable to model decomissioning of existing incineration plants" ;
 
 
 *-------------------------------------------------------------------------------

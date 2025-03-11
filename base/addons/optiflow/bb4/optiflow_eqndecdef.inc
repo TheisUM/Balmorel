@@ -50,11 +50,11 @@ EQUATION QMINFLOW_C(Y,C,PROC,FLOW)   "Constraint of FLOW consumption equals to a
 *----- Any declarations and definitions of equations for addon:
 *-------------------------------------------------------------------------------
 
-$ifi %inv%==yes  EQUATION QPROCKAPACCUMNET(Y,AAA,PROC)             'NOT FINISHED Accumulated new investments minus decommissioning of previous investments due to lifetime expiration available at beginning of next year (U/h)';
-$ifi %inv%==yes  EQUATION QPROCKAP_UP(Y,AAA,IPROCFROM,IPROCTO,FLOW,S,T)           'Capacity constraint on ..... (U/h)';
-$ifi %inv%==yes  EQUATION QPROCKAUP_SCALE1(Y,AAA,PROC)   "Equation for modelling economy of scale of new investments" ;
-$ifi %inv%==yes  EQUATION QPROCKAUP_SCALE2(Y,AAA,PROC)   "Equation for modelling economy of scale of new investments"  ;
-$ifi %inv%==yes  EQUATION QPROCKAP_DEC(Y,AAA,IPROCFROM,IPROCTO,FLOW,S,T) "Equation for modelling of decomissioning plants";
+EQUATION QPROCKAPACCUMNET(Y,AAA,PROC)             'NOT FINISHED Accumulated new investments minus decommissioning of previous investments due to lifetime expiration available at beginning of next year (U/h)';
+EQUATION QPROCKAP_UP(Y,AAA,IPROCFROM,IPROCTO,FLOW,S,T)           'Capacity constraint on ..... (U/h)';
+EQUATION QPROCKAUP_SCALE1(Y,AAA,PROC)   "Equation for modelling economy of scale of new investments" ;
+EQUATION QPROCKAUP_SCALE2(Y,AAA,PROC)   "Equation for modelling economy of scale of new investments"  ;
+EQUATION QPROCKAP_DEC(Y,AAA,IPROCFROM,IPROCTO,FLOW,S,T) "Equation for modelling of decomissioning plants";
 
 
 
