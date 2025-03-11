@@ -50,6 +50,17 @@ ISIMWEIGHT(YMODEL) = SUM(IYMODEL4$((1 LT ORD(IYMODEL4)) AND (ORD(IYMODEL4) <= OR
 * Initialize total capacity variables to start values.
 *-------------------------------------------------------------------------------
 
+$ifi not %import_results%==yes $goto no_result_import
+execute_load  "../localsimex/XKACCUMNET.gdx", XKACCUMNET;
+VXKNACCUMNET.FX(Y,IRE,IRI) = XKACCUMNET(Y,IRE,IRI);
+execute_load  "../localsimex/GKACCUMNET.gdx", GKACCUMNET;
+VGKNACCUMNET.FX(Y,IA,G) = GKACCUMNET(Y,IA,G);
+$ifi %HYDROGEN%==yes execute_load  "../localsimex/XH2KACCUMNET.gdx", XH2KACCUMNET;
+$ifi %HYDROGEN%==yes VXH2KNACCUMNET.FX(Y,IRE,IRI) = XH2KACCUMNET(Y,IRE,IRI);
+$ifi %OPTIFLOW%==yes execute_load  "../localsimex/PROCKAPACCUMNET.gdx", PROCKAPACCUMNET;
+$ifi %OPTIFLOW%==yes VPROCKAPACCUMNET.FX(Y,IA,PROC) = PROCKAPACCUMNET(Y,IA,PROC);
+$label no_result_import
+
 *------------------------------------------------------------------------------------------------------------------------------------------------------------
 *------------------------------------------------------------------------------------------------------------------------------------------------------------
 *------------------------------------------------------------------------------------------------------------------------------------------------------------

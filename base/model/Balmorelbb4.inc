@@ -2665,14 +2665,25 @@ $ifi %HEATTRANS%==yes    XHKACCUMNET(Y,IAE,IAI)$IXHK_HASORPOT(Y,IAE,IAI)=XHKFX(Y
 $ifi %HEATTRANS%==yes    $ifi %HeatTransInvest%==yes +VXHKNACCUMNET.L(Y,IAE,IAI)
 $ifi %HEATTRANS%==yes    ;
 
-execute_unload  "../../simex/XKACCUMNET.gdx", XKACCUMNET;
-execute_unload  "../../simex/GKACCUMNET.gdx", GKACCUMNET;
-$ifi %HEATTRANS%==yes  execute_unload  "../../simex/XHKACCUMNET.gdx", XHKACCUMNET;
+$ifi %HYDROGEN%==yes    XH2KACCUMNET(Y,IRE,IRI)$IXH2K_HASORPOT(Y,IRE,IRI)=XH2KFX(Y,IRE,IRI)
+$ifi %HYDROGEN%==yes    $ifi %H2TransInvest%==yes +VXH2KNACCUMNET.L(Y,IRE,IRI)
+$ifi %HYDROGEN%==yes    ;
+
+$ifi %OPTIFLOW%==yes    PROCKAPACCUMNET(Y,IA,PROC)$(AAAOPTIFLOW(IA))=
+$ifi %OPTIFLOW%==yes    $ifi %inv%==yes + VPROCKAPACCUMNET.L(Y,IA,PROC)
+$ifi %OPTIFLOW%==yes    ;
+
+execute_unload  "../localsimex/XKACCUMNET.gdx", XKACCUMNET;
+execute_unload  "../localsimex/GKACCUMNET.gdx", GKACCUMNET;
+$ifi %OPTIFLOW%==yes   execute_unload  "../localsimex/PROCKAPACCUMNET.gdx", PROCKAPACCUMNET;
+$ifi %HEATTRANS%==yes  execute_unload  "../localsimex/XHKACCUMNET.gdx", XHKACCUMNET;
+$ifi %HYDROGEN%==yes  execute_unload  "../localsimex/XH2KACCUMNET.gdx", XH2KACCUMNET;
 
 *Reducing size of export files once they have been exported
 XKACCUMNET(Y,IRE,IRI)=0;
 GKACCUMNET(Y,IA,G)=0;
 $ifi %HEATTRANS%==yes XHKACCUMNET(Y,IAE,IAI)=0;
+$ifi %OPTIFLOW%==yes  PROCKAPACCUMNET(Y,IA,PROC)=0;
 
 * For runs with storage save the following, to be used in future runs by addon "import_results":
 ESTOVOLTS(Y,IA,IGESTOS,S,T)$IAGK_HASORPOT(Y,IA,IGESTOS)=VESTOVOLTS.L(Y,IA,IGESTOS,S,T);

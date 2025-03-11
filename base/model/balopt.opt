@@ -116,11 +116,11 @@ SCALAR RAMP_RATE_HS	'ramping rate build-out of heat savings in GW/yr';
 SCALAR RAMP_YEAR 'year that the ramping rate is effective until';
 * The ramp-rate of heat savings is a bit ambiguous, it is defined as the total capacity of all heat saving technologies divided by 10
 
-RAMP_RATE_SOLE = 50;
-RAMP_RATE_WND = 30;
-RAMP_RATE_HP = 30;
+RAMP_RATE_SOLE = 70;
+RAMP_RATE_WND = 40;
+RAMP_RATE_HP = 500;
 RAMP_RATE_HS = 15;
-RAMP_YEAR = 2030;
+RAMP_YEAR = 2050;
 
 *---- End: Generation investments options----
 
@@ -261,7 +261,7 @@ $setglobal EV_INTERSEASONAL
 *------------------------------TRANSPORT ADDON-------------------------------------------------
 * overall control variable TRANSPORT must be 'yes' if any of the other TRANSPORT controls are:
 * Include transport data in the optimization (it is supposed to complement the EV addon, so check consistency of data before using it).
-$setglobal TRANSPORT YES 
+$setglobal TRANSPORT
 *!option yes
 
 * Defines the commodity used to model synthetic fuel generation.
@@ -474,11 +474,11 @@ $setglobal LIFETIME_DECOM_ENDO_G YES
 *!option yes
 
 * Adds Endogenous capacities can be decommissioned based on their profitability:
-$setglobal ECONOMIC_DECOM_ENDO_G   yes
+$setglobal ECONOMIC_DECOM_ENDO_G
 *!option yes
 
 * Adds Endogenous decommissioned endogenous capacities can be brought back to the energy system. To be combined with the other decommissioning options:
-$setglobal REVERT_DECOM_ENDO_G   yes
+$setglobal REVERT_DECOM_ENDO_G
 *!option yes
 
 *--------END OF ENDOGENOUS CAPACITIES-----
@@ -498,7 +498,7 @@ $setglobal NO_DECOM_EXO_G
 *!option yes
 
 * Adds Exogenous capacities will maximum stay in the system as much as their lifetimes (or as much as political decissions suggest it, for instance), which should be represented in the yearly development of capacities of the input parameter GKFX:
-$setglobal LIFETIME_DECOM_EXO_G  YES
+$setglobal LIFETIME_DECOM_EXO_G YES
 *!option yes
 
 * Adds Exogenous capacities can be decommissioned based on their profitability:
