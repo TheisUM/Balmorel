@@ -124,7 +124,7 @@ XINVESTSTART= 2035;
 *overall control variable HEATTRANS must be 'yes' if any of the other heat trans controls are.
 
 * Permit heat transmission between areas.
-$setglobal HEATTRANS YES
+$setglobal HEATTRANS
 *!option yes
 
 * Permit heat transmission investments between areas.
@@ -541,16 +541,28 @@ $setglobal timeaggr
 *-------------------------------------------------------------------------------
 * OptiFlow model.
 *-------------------------------------------------------------------------------
-$setglobal OPTIFLOW
+$setglobal OPTIFLOW yes
 *!option yes
 * Addon APKNdisc: discrete size investments in PROC.
 $setglobal APKNdisc
 *!option yes
 *Investments in Optiflow technologies
-$setglobal inv yes
+$setglobal inv
 *! option yes
 *Model solved as MIP
 $setglobal solveOptiFlowmip
+*! option yes
+* Connects biomass use between Balmorel and OptiFlow.
+* Also sets MAXFLOW to 0
+$setglobal baloptfuelbridge yes
+*! option yes
+* Connects biogas produced by OptiFlow to Balmorel.
+* Also sets balmorel biogas potential to 0
+$setglobal baloptgasbridge yes
+*! option yes
+* Connects captured CO2 in Balmorel with CO2 use in OptiFlow
+* !! Requires the CCS addon!!!
+$setglobal baloptCCU yes
 *! option yes
 
 * Debug possibilities:
@@ -624,7 +636,7 @@ $label endofMSNTrelpaths
 * e.g. one model output serving as input to another model.
 
 * Overall control to export results so they can be used in future runs :
-$Setglobal export_results yes
+$Setglobal export_results
 *!option yes
 
 *--------------------------------------------

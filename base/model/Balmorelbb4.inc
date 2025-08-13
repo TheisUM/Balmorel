@@ -766,7 +766,7 @@ PARAMETER   IM_SO2(G)   "SO2 emission coefficient for fuel (kg/GJ)";
 PARAMETER   IM_N2O(G)   "NO2 emission coefficient for fuel (kg/GJ)";
 
 LOOP(FFF, !! TODO: Check forbedringen af kode som givet p\E5 SONYstick
-  IM_CO2(G)$IGF(G,FFF)   = FDATA(FFF,'FDCO2');
+  IM_CO2(G)$IGF(G,FFF)   = FDATA(FFF,'FDCO2')*(1 - FDATA(FFF,'FDRE'));
   IM_CO2RE(G)$IGF(G,FFF) = FDATA(FFF,'FDCO2')*FDATA(FFF,'FDRE');
   IM_SO2(G)$IGF(G,FFF)   = FDATA(FFF,'FDSO2')$(GDATA(G,'GDDESO2') EQ 0) +
       (FDATA(FFF,'FDSO2')*(1-GDATA(G,'GDDESO2')))$(GDATA(G,'GDDESO2') GT 0);
@@ -827,8 +827,9 @@ PARAMETER IX3FX_T(Y,RRR,S,T) "Fixed export to third countries for each time segm
 PARAMETER IHYINF_S(AAA,SSS)  "Water inflow to hydro reservoirs in areas in each season (MWh/MW)";
 
 PARAMETER IGROWTHCAPCG(C,G)  "Limit on growth of technology dependent on years between optimisation (MW) TODO";
-*PARAMETER IGKNMAX(Y,AAA,G)   "Maximum capacity at new technologies (MW)"; !!TODO. Relevant?   Presently not implemented.
-
+IGROWTHCAPCG(C,G) = GROWTHCAP(C,G);
+PARAMETER IGKNMAX(Y,AAA,G)   "Maximum capacity of new technologies (MW)"; !!TODO. Relevant?   Presently not implemented.
+IGKNMAX(Y,AAA,G) = GKNMAX(Y,AAA,G);
 
 *-------------------------------------------------------------------------------
 * Set the time weights depending on the model:
@@ -1888,6 +1889,7 @@ QGMINCF(IY411,C,FFF)$IGMINF(IY411,C,FFF)..
 * "Maximum fuel use by year, country and fuel (GJ)"
 QGMAXCF(IY411,C,FFF)$IGMAXF(IY411,C,FFF)..
     SUM(IAGK_HASORPOT(IY411,IA,G)$(IGF(G,FFF) AND ICA(C,IA)), IOF3P6 * SUM((IS3,T), IHOURSINST(IS3,T)*IHOURFRAC * VGF_T(IY411,IA,G,IS3,T)))
+$include "../../base/addons/_hooks/qgmaxcf.inc"
     =L= IGMAXF(IY411,C,FFF);
 
 * "Exact fuel use by year, country and fuel (GJ)"
@@ -1905,6 +1907,7 @@ QGMINRF(IY411,IR,FFF)$IGMINF(IY411,IR,FFF)..
 * "Maximum fuel use by year, region and fuel constraint (GJ)"
 QGMAXRF(IY411,IR,FFF)$IGMAXF(IY411,IR,FFF)..
     SUM(IAGK_HASORPOT(IY411,IA,G)$(IGF(G,FFF) AND RRRAAA(IR,IA)), IOF3P6 * SUM((IS3,T), IHOURSINST(IS3,T)*IHOURFRAC * VGF_T(IY411,IA,G,IS3,T)))
+$include "../../base/addons/_hooks/qgmaxrf.inc"
     =L= IGMAXF(IY411,IR,FFF);
 
 * "Exact fuel use by year, region and fuel (GJ)"
@@ -1922,6 +1925,7 @@ QGMINAF(IY411,IA,FFF)$IGMINF(IY411,IA,FFF)..
 * "Maximum fuel use by year, area and fuel (GJ)"
 QGMAXAF(IY411,IA,FFF)$IGMAXF(IY411,IA,FFF)..
     SUM(IAGK_HASORPOT(IY411,IA,G)$(IGF(G,FFF)), IOF3P6 * SUM((IS3,T), IHOURSINST(IS3,T)*IHOURFRAC * VGF_T(IY411,IA,G,IS3,T)))
+$include "../../base/addons/_hooks/qgmaxaf.inc"
     =L= IGMAXF(IY411,IA,FFF);
 
 * "Exact fuel use by year, area and fuel (GJ)"
@@ -2573,8 +2577,6 @@ $ifi not exist 'Balmorelbb4.sim'  $include '../../base/model/Balmorelbb4.sim';
 $ifi %OUTPUT_SUMMARY%==yes $if     EXIST '../../base/output/OUTPUT_SUMMARY.inc' $INCLUDE         '../../base/output/OUTPUT_SUMMARY.inc';
 *--- End of Main results calculation ---------------------------------------
 
-*----optiflow output file (TO BE MERGED IN OUTPUT_SUMMARY.inc)
-$ifi %Optiflow%==yes       $if     EXIST '../../base/output/Optiflow_OutputFile.inc' $include '../../base/output/Optiflow_OutputFile.inc';
 
 $ifi not %export_results%==yes $goto result_export
 *------------------------------------------------------------------------------
