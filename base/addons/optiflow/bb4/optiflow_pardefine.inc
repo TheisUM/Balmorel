@@ -36,7 +36,7 @@ $if not EXIST '../data/OPTIFLOW_AAASOURCE.inc' $INCLUDE '../../base/data/OPTIFLO
 * Set ITWWT(T) specifies the time resolution for use with the waste system parts.
 * ITWWT shall have one one element.
 SET ITWWT(T) "Time periods within the season in the simulation - waste system"
-/  T001 /;
+/  T073 /;
 
 
 ALIAS (Y,IYALIAS,IY402,Y403);

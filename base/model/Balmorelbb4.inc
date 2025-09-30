@@ -827,9 +827,9 @@ PARAMETER IX3FX_T(Y,RRR,S,T) "Fixed export to third countries for each time segm
 PARAMETER IHYINF_S(AAA,SSS)  "Water inflow to hydro reservoirs in areas in each season (MWh/MW)";
 
 PARAMETER IGROWTHCAPCG(C,G)  "Limit on growth of technology dependent on years between optimisation (MW) TODO";
-IGROWTHCAPCG(C,G) = GROWTHCAP(C,G);
+*IGROWTHCAPCG(C,G) = GROWTHCAP(C,G);
 PARAMETER IGKNMAX(Y,AAA,G)   "Maximum capacity of new technologies (MW)"; !!TODO. Relevant?   Presently not implemented.
-IGKNMAX(Y,AAA,G) = GKNMAX(Y,AAA,G);
+*IGKNMAX(Y,AAA,G) = GKNMAX(Y,AAA,G);
 
 *-------------------------------------------------------------------------------
 * Set the time weights depending on the model:
